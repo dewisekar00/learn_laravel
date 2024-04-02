@@ -1,0 +1,27 @@
+> membuat searching di model dengan Eloquent scope
+> request tugas controller
+> query searching tugas model
+https://laravel.com/docs/11.x/eloquent#query-scopes
+
+
+cara searching:
+a.di posts blade author / category buat jadi gini
+/blog?author={{ $post->author->username}}
+b.terus di PostController:
+ "posts" =>  Post::latest()->filter(request(['search', 'category', 'author']))->get()
+c.terus di model Post:
+    $query->when($filters['author'] ?? false, function($query, $author){
+           return $query->whereHas('author', function($query) use ($author) {
+  $query->where('username', $author);
+           });
+        }) ;
+
+
+
+cara pagination:
+a. tambahkan ini ke PostController =
+->paginate(7)->withQueryString()
+b. tambahkan ini di halaman web nya untuk menampilkan tombol pagination =
+<div class="d-flex justify-content-center">
+{{ $posts->links()}}
+</div>

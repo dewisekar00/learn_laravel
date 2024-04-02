@@ -12,7 +12,7 @@
     <li>
     <h1>
 
-<a href="/categories/{{ $category->slug }}">{{ $category->name}}</a>
+<a href="/blog?category={{ $category->slug }}">{{ $category->name}}</a>
 </h1>
 
     </li>
